@@ -1,0 +1,11 @@
+node_modules
+node_modules/
+dist/
+build/
+.env
+uploads/
+*.pdf
+.vscode/
+__pycache__/
+*.log
+.docs

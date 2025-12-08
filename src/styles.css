@@ -1,0 +1,493 @@
+/* body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+}
+
+.app-root {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.app-header {
+  padding: 8px 12px;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.app-main {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+.sidebar {
+  width: 280px;
+  border-right: 1px solid #ddd;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.section-item {
+  padding: 4px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 2px;
+}
+
+.section-item:hover {
+  background: #f0f0f0;
+}
+
+.section-item.active {
+  background: #eef4ff;
+  border-left: 3px solid #007bff;
+}
+
+.section-title-input {
+  width: 100%;
+  border: none;
+  background: transparent;
+  font-size: 0.85rem;
+}
+
+.section-title-input:focus {
+  outline: none;
+}
+
+.section-controls {
+  margin-top: 4px;
+  display: flex;
+  gap: 4px;
+}
+
+.editor-wrapper {
+  flex: 1;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.ql-container {
+  flex: 1;
+}
+
+.export-btn {
+  margin-top: 8px;
+} */
+
+/* Global */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  background: radial-gradient(circle at top left, #e0f2fe 0, #f9fafb 40%, #f3f4f6 100%);
+  color: #0f172a;
+}
+
+/* Shell */
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.app-header {
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(90deg, #0f172a, #1d4ed8);
+  color: #f9fafb;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.4);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.brand-subtitle {
+  margin: 0;
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+/* File upload button */
+.file-upload {
+  position: relative;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #f97316;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.3);
+  transition: transform 0.08s ease, box-shadow 0.08s ease,
+    background-color 0.1s ease;
+}
+
+.file-upload:hover {
+  background: #fb923c;
+  box-shadow: 0 6px 14px rgba(15, 23, 42, 0.4);
+  transform: translateY(-1px);
+}
+
+.file-upload input[type="file"] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.file-upload-label {
+  color: #fff7ed;
+}
+
+/* Layout */
+.app-layout {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(260px, 320px) minmax(0, 1fr);
+  gap: 16px;
+  padding: 18px 22px 22px;
+}
+
+/* Panels */
+.panel {
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 18px 35px rgba(15, 23, 42, 0.10);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.panel-left {
+  min-height: 0;
+}
+
+.panel-right {
+  min-height: 0;
+}
+
+.panel-header {
+  padding: 10px 14px;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f9fafb;
+}
+
+.panel-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.panel-count,
+.panel-tag {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #e5e7eb;
+  color: #374151;
+}
+
+/* Sections list */
+.section-list {
+  padding: 6px 6px 8px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.section-row {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 8px;
+  padding: 6px 8px;
+  cursor: pointer;
+  font-size: 13px;
+  text-align: left;
+  transition: background 0.12s ease, transform 0.05s ease;
+}
+
+.section-row:hover {
+  background: #eef2ff;
+  transform: translateX(1px);
+}
+
+.section-row-active {
+  background: #e0ebff;
+  box-shadow: inset 0 0 0 1px #2563eb;
+}
+
+.section-bullet {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: #9ca3af;
+  flex-shrink: 0;
+}
+
+.section-row-active .section-bullet {
+  background: #2563eb;
+}
+
+.section-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Empty state */
+.empty-state {
+  padding: 10px;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* Buttons */
+.primary-btn {
+  margin: 8px;
+  border-radius: 8px;
+  border: none;
+  padding: 8px 10px;
+  background: #2563eb;
+  color: white;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.1s ease, box-shadow 0.1s ease,
+    transform 0.06s ease;
+}
+
+.primary-btn:hover:not(:disabled) {
+  background: #1d4ed8;
+  box-shadow: 0 8px 18px rgba(37, 99, 235, 0.4);
+  transform: translateY(-1px);
+}
+
+.primary-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Editor */
+.editor-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 8px 10px 10px;
+}
+
+.ql-container {
+  flex: 1;
+}
+
+.ql-toolbar.ql-snow {
+  border-radius: 10px 10px 0 0;
+}
+
+.ql-container.ql-snow {
+  border-radius: 0 0 10px 10px;
+}
+
+/* Small screens */
+@media (max-width: 900px) {
+  .app-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+
+
+
+
+
+
+/* Here  
+coode 
+goes */
+/*.ql-editor table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin: 12px 0;
+}
+
+.ql-editor th,
+.ql-editor td {
+  border: 1px solid #000;
+  padding: 4px 6px;
+  vertical-align: top;
+}
+
+.ql-editor th {
+  font-weight: 600;
+}*/
+
+/* ==================== PUPPETEER-OPTIMIZED TABLE STYLES ==================== */
+/* These styles are specifically tuned for Puppeteer PDF rendering */
+
+/*.ql-editor table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin: 16px 0;
+  font-size: 13px;
+  table-layout: fixed;  /* Use fixed layout for consistent rendering */
+  /* background: white; */
+/* } */
+
+/*.ql-editor table * {
+  box-sizing: border-box;
+}
+
+.ql-editor table tbody {
+  display: table-row-group;
+}
+
+.ql-editor table thead {
+  display: table-header-group;
+  background-color: #f0f0f0;
+}
+
+.ql-editor table tr {
+  display: table-row;
+  border: none;
+  page-break-inside: avoid;
+  background: white;
+}
+
+.ql-editor table td,
+.ql-editor table th {
+  display: table-cell;
+  border: 1px solid #333;  /* Bold, visible borders */
+  /*padding: 10px 12px;
+  text-align: left;
+  vertical-align: middle;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  background: white;
+  line-height: 1.4;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.ql-editor table th {
+  font-weight: bold;
+  background-color: #e8e8e8;  /* Distinct header background */
+  /*text-align: center;
+  border: 1px solid #333;
+  color: #000;
+  padding: 12px;
+}
+
+/* Alternating row colors for readability */
+/*.ql-editor table tbody tr:nth-child(odd) {
+  background-color: white;
+}
+
+.ql-editor table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Ensure borders stay visible on all cells */
+/*.ql-editor table tbody td {
+  border: 1px solid #333;
+}
+
+/* Prevent breaks within table elements */
+/*ql-editor table {
+  page-break-after: auto;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+.ql-editor table thead {
+  display: table-header-group;
+  page-break-inside: avoid;
+}
+
+.ql-editor table tr {
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+.ql-editor table td,
+.ql-editor table th {
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+/* Handle nested elements in table cells */
+/*.ql-editor table p {
+  margin: 0;
+  padding: 0;
+}
+
+.ql-editor table blockquote {
+  margin: 0;
+  padding: 0;
+  border: none;
+} */
+
+.jodit-wysiwyg table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.jodit-wysiwyg th,
+.jodit-wysiwyg td {
+  border: 1px solid #000;
+  padding: 4px;
+  vertical-align: top;
+}
